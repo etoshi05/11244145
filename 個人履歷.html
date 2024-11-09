@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Resume</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* 版面 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #FF9A8B, #FF6A88, #FF99AC);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            width: 60%; 
+            max-width: 1800px; 
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }   
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+        
+        /* 頁面標題 */
+        header {
+            background: linear-gradient(135deg, #FF6A88, #FF99AC);
+            color: #fff;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 15px 15px 0 0;
+        }
+        header .photo {
+            width: 120px;
+            height: 120px;
+            background-color: #eee;
+            border-radius: 50%;                /* 使圖片和框架為圓形 */
+            margin: 0 auto 20px;               /* 圖片居中並且與標題有間距 */
+            border: 4px solid #fff;            /* 給圓形框架添加白色邊框 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 添加陰影效果 */
+            overflow: hidden;                  /* 讓圖片超出的部分隱藏 */
+        }
+
+        header .photo img {
+            width: 100%;                        /* 讓圖片寬度充滿整個圓形 */
+            height: 100%;                       /* 讓圖片高度充滿圓形 */
+            object-fit: cover;                  /* 讓圖片填滿圓形並保持比例 */
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        header p, header blockquote {
+            font-size: 1em;
+            opacity: 0.9;
+        }
+
+        /* 目錄 */
+        nav {
+            background-color: #FFEBEE;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            border-bottom: 2px solid #ffd1dc;
+        }
+        nav a {
+            color: #FF6A88;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        nav a:hover {
+            background-color: #FFE0E6;
+        }
+
+        /* 主要內容 */
+        section {
+            padding: 30px 20px;
+            border-bottom: 1px solid #ffd1dc;
+            background-color: #fff7f8;
+        }
+        section h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #FF6A88;
+            text-align: center;
+            position: relative;
+        }
+        section h2::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background-color: #FF6A88;
+            display: block;
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        article {
+            text-align: center;
+            padding: 20px;
+        }
+        article p, article img {
+            margin: 10px 0;
+        }
+        /* 關於我 CSS */
+        #about .content {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }           
+
+        #about .text {
+            flex: 2;
+            text-align: left;
+        }
+
+        #about .image {
+            flex: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        #about .image img {
+            width: 100%;
+            max-width: 300px; 
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        #about ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        #about li {
+            font-size: 1em;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        /* 技能 CSS */
+        .skills-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .skill {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .skill-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: conic-gradient(#FF6A88 calc(var(--percent) * 1%), #ddd 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-circle::before {
+            content: attr(data-percent) '%';
+            position: absolute;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* 興趣CSS */
+        .hobbies {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .hobbies div {
+            background: linear-gradient(135deg, #FF9A8B, #FF6A88);
+            color: #fff;
+            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9em;
+            flex-direction: column;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .hobbies div:hover {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, #FF6A88, #FF99AC);
+        }
+
+        /* 作品集CSS */
+        .portfolio-gallery {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .portfolio-gallery img {
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .portfolio-gallery img:hover {
+            transform: scale(1.05);
+        
+        }
+
+        /* 經歷CSS */
+        .experience-item {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+            background-color: #FFF0F3;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .experience-item img {
+            width: 100px;
+            height: 100px;
+            margin-right: 15px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        /*更多照片*/
+        .more-photos {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .more-photos img {
+            width: 250px;
+            height: 250px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+        }
+        .more-photos img :hover {
+            transform: scale(1.05);
+        
+        }
+
+        /* 聯絡 */
+        footer {
+            background: linear-gradient(135deg, #FF6A88, #FF99AC);
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            border-radius: 0 0 15px 15px;
+        }
+        footer p, footer .social-media a {
+            color: #fff;
+        }
+        .social-media a {
+            margin: 0 10px;
+            font-size: 1.5em;
+            transition: color 0.3s;
+        }
+        .social-media a:hover {
+            color: #FFE0E6;
+        }
+        .social-media a {
+            display: inline-flex;
+            align-items: center;
+            color: #fff;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transition: color 0.3s;
+        }
+        .social-media a i {
+            margin-right: 8px; 
+        }   
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- 標題 -->
+        <header>
+            <div class="photo">
+                <img src="個人照.png" alt="">
+            </div>
+            <h1>林子庭</h1>
+            <p>中原大學 資管二甲 11244145</p>
+            <blockquote>「努力不是為了別人  而是為了自己」</blockquote>
+        </header>
+
+        <!-- 目錄 -->
+        <nav>
+            <a href="#about">關於我</a>
+            <a href="#skills">技能</a>
+            <a href="#hobbies">興趣</a>
+            <a href="#portfolio">作品集</a>
+            <a href="#experience">個人經歷</a>
+            <a href="#more-photos">更多照片</a>
+        </nav>
+
+        <!-- 關於我 -->
+        <section id="about">
+            <article>
+                <h2>關於我</h2>
+                <p>國小/國中/高中: 新北市私立裕德雙語高級中學<p></p>
+                <p>喜歡看漫畫、玩PC或是手遊、偶爾也會電繪創作。<p>
+                <p>各領域基本上都有涉及一點</p> 
+                <p>對設計相當有興趣 原想當插畫家 但科技的進展 發現需要學習更多資訊類的知識 故選擇資管系 增進知識 </p>
+                <p>喜歡的人事物: </p>
+                <u1>
+                    <li>T1 Keria</li>
+                    <li>藤井 風</li>
+                    <li>SEVENTEEN nmixx</li> 
+                    <li>nmixx</li> 
+                </u1>
+                <p>主要玩的遊戲:</p>
+                <u1>
+                    <li>League of Legends</li>
+                    <li>Valorant</li>
+                    <li>Eternal Return</li> 
+                    <li>Livly</li> 
+                </u1>
+            </article>
+        </section>
+
+        <!-- 技能 -->
+        <section id="skills">
+            <article>
+                <h2>技能</h2>
+                <div class="skills-container">
+                    <div class="skill" data-percent="70">
+                        <div class="skill-circle"></div>
+                        <p>PYTHON</p>
+                    </div>
+                    <div class="skill" data-percent="50">
+                        <div class="skill-circle"></div>
+                        <p>JAVA</p>
+                    </div>
+                    <div class="skill" data-percent="80">
+                        <div class="skill-circle"></div>
+                        <p>CLIP</p>
+                    </div>
+                </div>  
+            </article>
+        </section>
+
+
+
+        <!-- 興趣 -->
+        <section id="hobbies">
+            <article>
+                <h2>興趣</h2>
+                <div class="hobbies">
+                    <div><a href="https://www.threads.net/@etoshi_05?xmt=AQGz7t6hk-g2YMNl6A7CJ8UaGdMaU4-gLMEU5nT-2qwT6-w" target="_blank">畫圖</a></div>
+                    <div><a href="https://www.op.gg/summoners/tw/hiyoko-%E5%91%B1%E5%91%B1%E9%AE%AE%E6%A3%AE" target="_blank">PC 遊戲</a></div>
+                    <div><a href="https://www.youtube.com/watch?v=BgR_HJ7aGDY" target="_blank">聽音樂<br>(K/J-POP)</a></div>
+                    <div><a href="https://acg.gamer.com.tw/acgDetail.php?s=52206" target="_blank">動漫</a></div>
+                </div>
+            </article>
+        </section>
+        
+
+        <!-- 作品集 -->
+        <section id="portfolio">
+            <article>
+                <h2>作品集</h2>
+                <div class="portfolio-gallery">
+                    <figure>
+                        <img src="小痛 千千菟oc.jpg" alt="小痛-千千菟OC">
+                        <figcaption>小痛-千千菟OC</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="2023新年賀圖夏無.png" alt="2023新年賀圖-夏無">
+                        <figcaption>2023新年賀圖-夏無</figcaption>
+                    </figure>
+                    <figure>
+                        <img src="個人oc.png" alt="個人OC">
+                        <figcaption>個人OC</figcaption>
+                    </figure>
+                </div>
+            </article>
+        </section>
+        
+
+        <!-- 個人經歷 -->
+        <section id="experience">
+            <article>
+                <h2>個人經歷</h2>
+                <div class="experience-item">
+                    <img src="熱舞社.jpg" alt="Experience 1">
+                    <p><a href="https://www.youtube.com/watch?v=lwXPHTx6ttA&t=100s" target="_blank">參與大學熱舞社 期初小成發</a></p>
+                </div>
+                <div class="experience-item">
+                    <img src="幼稚園.jpg" alt="Experience 2">
+                    <p>曾在烤肉店打工和幼稚園幫忙行政事務</p>
+                </div>
+            </article>
+        </section>
+
+        <!--更多照片-->
+        <section id="more-photos">
+            <article>
+                <h2>更多照片</h2>
+                <div class="more-photos">
+                    <figure>
+                        <img src="更多照片1.jpg" alt="更多照片1">
+                    </figure>
+                    <figure>
+                        <img src="更多照片2.jpg" alt="更多照片2">
+                    </figure>
+                    <figure>
+                        <img src="更多照片3.jpg" alt="更多照片3">
+                    </figure>
+                    <figure>
+                        <img src="更多照片4.jpg" alt="更多照片4">
+                    </figure>
+                    <figure>
+                        <img src="更多照片5.jpg" alt="更多照片5">
+                    </figure>
+                    <figure>
+                        <img src="更多照片6.jpg" alt="更多照片6">
+                    </figure>
+                </div>
+            </article>
+        </section>
+
+        </section>
+
+        <!-- 聯絡 -->
+        <footer>
+            <h3>聯絡資訊</h3>
+            <p>Email: ting94118@gmail.com</p>
+            <p>Discord:.hiyoko</p>
+            <div class="social-media">
+                <a href="https://www.instagram.com/etoshi_05/" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="mailto:ting94118@gmail.com" target="_blank">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="https://www.instagram.com/zitin.__/" target="_blank">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://x.com/miko9887" target="_blank">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </div>
+        </footer>       
+</body>
+
+<!--java圓餅圖-->>
+<script>
+    document.querySelectorAll('.skill').forEach(skill => {
+        const percent = skill.getAttribute('data-percent');
+        skill.querySelector('.skill-circle').style.setProperty('--percent', percent);
+        skill.querySelector('.skill-circle').setAttribute('data-percent', percent);
+    });
+</script>
+
+</html>
