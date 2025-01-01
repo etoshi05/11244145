@@ -77,7 +77,7 @@ const translations = {
             
             score:"score",
             Submitcomment:"Submit your comment",
-            productrating:"productrating",
+            productrating:"product rating",
             cart:"Add to Cart",
             collect:"Add to Collection"
         },
