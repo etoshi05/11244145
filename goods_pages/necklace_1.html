@@ -20,9 +20,9 @@
                 <li class="dropdown">
                     <a href="#" i><img src="../images/asset/user-interface.PNG"  width="30" height="30" ></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#" data-text="Orderinquiry">訂單查詢</a></li>
+                        <li><a href="../profile/profile.html" data-text="Orderinquiry">訂單查詢</a></li>
                         <li><a href="../collection/collection.html" data-text="Mycollection">我的收藏</a></li>
-                        <li><a href="#" data-text="MyCoupons">我的優惠券</a></li>
+                        <li><a href="../profile/profile.html" data-text="MyCoupons">我的優惠券</a></li>
                         <li><a href="../login/login.html" data-text="Memberloginregistration">會員登入/註冊</a></li>
                     </ul>
                 </li>
@@ -62,8 +62,8 @@
                 <h5>Necklace 1</h5><br>
                 <h4 data-text="neckintro1>浪漫蝴蝶造型，搭配耀眼晶鑽，增添柔美氣質。</h4><br>
                 <h4><div class="price" data-base-price="1000">NT$1000</div></h4><br>
-                <button class="add-to-cart" data-id="1" data-name="蝶戀閃耀項鍊" data-price="1000">加入購物車</button>
-                <a href="../collection/collection.html"><button class="add-to-collection" data-text="collection">加入我的收藏
+                <button class="add-to-cart" data-id="1" data-name="蝶戀閃耀項鍊" data-price="1000" data-text="cart">加入購物車</button>
+                <a href="../collection/collection.html"><button class="add-to-collection" data-text="collect">加入我的收藏
                     <span class="heart-icon" width="20" height="20">♡</span>
                 </button></a>
             </section>
@@ -84,7 +84,7 @@
         
     </aside>
     <section id="reviews-section">
-        <div id="average-rating">
+        <div id="average-rating" data-text="productrating">
             商品評分：<span id="average-score"></span> / 5
             <span class="stars">
                 <i class="fas fa-star"></i>
@@ -97,7 +97,7 @@
         <div id="review-list">
         </div>
         <form id="review-form">
-            <label for="rating">評分：</label>
+            <label for="rating" data-text="score">評分：</label>
             <select id="rating" name="rating" required>
                 <option value="5">5 星</option>
                 <option value="4">4 星</option>
@@ -105,9 +105,9 @@
                 <option value="2">2 星</option>
                 <option value="1">1 星</option>
             </select>
-            <label for="comment">提交您的評論：</label>
+            <label for="comment" data-text="Submitcomment">提交您的評論：</label>
             <textarea id="comment" name="comment" required></textarea>
-            <button type="submit">  提交評論</button>
+            <button type="submit" data-text="Submitcomment">  提交評論</button>
         </form>
     </section>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
