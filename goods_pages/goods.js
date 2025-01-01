@@ -170,3 +170,26 @@ document.querySelector('#review-form').addEventListener('submit', (event) => {
     // 重置表單
     document.querySelector('#review-form').reset();
 });
+ // 語言切換功能
+    languageSelect.addEventListener("change", (event) => {
+        const selectedLanguage = event.target.value;
+        const texts = translations[selectedLanguage];
+
+        document.querySelectorAll("[data-text]").forEach(element => {
+            const key = element.getAttribute("data-text");
+            if (texts[key]) {
+                element.textContent = texts[key];
+            }
+        });
+    });
+
+    // 幣別切換功能
+    currencySelect.addEventListener("change", (event) => {
+        const selectedCurrency = event.target.value;
+        const { symbol, rate } = currencyFormats[selectedCurrency];
+
+        document.querySelectorAll(".price").forEach(priceElement => {
+            const basePrice = parseFloat(priceElement.dataset.basePrice);
+            priceElement.textContent = `${symbol} ${(basePrice * rate).toFixed(2)}`;
+        });
+    });
