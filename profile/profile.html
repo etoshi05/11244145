@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員資料</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #664747;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        header {
+            background-color: rgb(194, 158, 158);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a,
+        nav button {
+            color: white;
+            text-decoration: none;
+            background-color: #8e5151;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        nav a:hover,
+        nav button:hover {
+            background-color: #846868;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+
+        main h2 {
+            color: #be4949;
+            text-align: center;
+            font-size: 1.6rem;
+        }
+
+        main p {
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 10px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+            background-color: #f1f1f1;
+            margin-top: 2rem;
+        }
+
+        #order-details,
+        #coupon-details {
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        #order-details ul,
+        #coupon-details ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #order-details ul li,
+        #coupon-details ul li {
+            padding: 0.5rem;
+            border-bottom: 1px solid #ddd;
+        }
+
+        #order-details ul li:last-child,
+        #coupon-details ul li:last-child {
+            border-bottom: none;
+        }
+
+        button {
+            margin-top: 10px;
+            background-color: #be4949;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #9f3d3d;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>會員資料</h1>
+        <nav>
+            <a href="../index.html">返回首頁</a>
+            <button id="logoutBtn">登出</button>
+        </nav>
+    </header>
+    <main>
+        <section id="user-profile">
+            <h2>您好, <span id="user-name"></span></h2>
+            <p>訂單數量：<span id="order-count">0</span></p>
+            <button id="view-orders">查看訂單詳情</button>
+            <div id="order-details" style="display: none;">
+                <h3>訂單詳情</h3>
+                <ul id="order-list"></ul>
+            </div>
+            <p>收藏數量：<span id="collection-count">0</span></p>
+            <p>優惠券數量：<span id="coupon-count">0</span></p>
+            <button id="view-coupons">查看優惠券</button>
+            <div id="coupon-details" style="display: none;">
+                <h3>優惠券</h3>
+                <ul id="coupon-list"></ul>
+            </div>
+            <p>註冊禮：<span id="registration-gift">尚未領取</span></p>
+        </section>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const username = localStorage.getItem('loggedInUser');
+            if (!username) {
+                alert('您尚未登入！');
+                window.location.href = '../login/login.html';
+                return;
+            }
+
+            const userData = JSON.parse(localStorage.getItem(username)) || {};
+
+            // 更新會員基本資料
+            document.getElementById('user-name').textContent = username;
+            document.getElementById('order-count').textContent = userData.orders?.length || 0;
+            document.getElementById('collection-count').textContent = userData.collections?.length || 0;
+
+            // 優惠券資料顯示
+            document.getElementById('coupon-count').textContent = userData.coupons?.length || 0;
+            const giftStatus = userData.registrationGift ? '已領取' : '尚未領取';
+            document.getElementById('registration-gift').textContent = giftStatus;
+
+            // 查看訂單詳情邏輯
+            document.getElementById('view-orders').addEventListener('click', () => {
+                const orderDetails = document.getElementById('order-details');
+                const orderList = document.getElementById('order-list');
+
+                // 顯示或隱藏詳情
+                orderDetails.style.display = orderDetails.style.display === 'none' ? 'block' : 'none';
+
+                // 清空並重新渲染訂單清單
+                orderList.innerHTML = '';
+
+                if (userData.orders && userData.orders.length > 0) {
+                    userData.orders.forEach((order, index) => {
+                        const li = document.createElement('li');
+                        li.textContent = `${index + 1}. ${order.name} - $${order.price}`;
+                        orderList.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = '目前尚無訂單記錄';
+                    orderList.appendChild(li);
+                }
+            });
+
+            // 查看優惠券詳情邏輯
+            document.getElementById('view-coupons').addEventListener('click', () => {
+                const couponDetails = document.getElementById('coupon-details');
+                const couponList = document.getElementById('coupon-list');
+
+                // 顯示或隱藏詳情
+                couponDetails.style.display = couponDetails.style.display === 'none' ? 'block' : 'none';
+
+                // 清空並重新渲染優惠券清單
+                couponList.innerHTML = '';
+
+                if (userData.coupons && userData.coupons.length > 0) {
+                    userData.coupons.forEach((coupon, index) => {
+                        const li = document.createElement('li');
+                        li.textContent = `${index + 1}. ${coupon}`;
+                        couponList.appendChild(li);
+                    });
+                } else {
+                    const li = document.createElement('li');
+                    li.textContent = '目前無可用優惠券';
+                    couponList.appendChild(li);
+                }
+            });
+
+            // 登出按鈕邏輯
+            document.getElementById('logoutBtn').addEventListener('click', function () {
+                localStorage.removeItem('loggedInUser');
+                alert('您已成功登出！');
+                window.location.href = '../index.html';
+            });
+        });
+    </script>
+</body>
+</html>
