@@ -5,17 +5,9 @@ const swiper = new Swiper(".mySwiper", {
         prevEl: ".swiper-button-prev",
     },
 });
+const languageSelect = document.getElementById("language-select");
 const translations = {
         "zh-TW": {
-            welcome: "歡迎來到購物網站",
-            explore: "探索您的時尚選擇，開始購物吧！",
-            introduce: "介紹",
-            category: "種類",
-            necklace: "項鍊",
-            earrings: "耳環",
-            rings: "戒指",
-            brand: "品牌",
-
             necklace1:"蝶戀閃耀項鍊",
             necklace2:"藍韻晶華項鍊",
             necklace3:"星影垂光項鍊",
@@ -45,19 +37,15 @@ const translations = {
             ringsintro2:"純銀打造的甜美設計，散發優雅韻味。",
             ringsintro3:"精緻花紋搭配鏤空設計，適合各種場合。",
             ringsintro4:"星形光環設計，為指尖增添閃耀光彩。",
-
+            
+            score:"評分",
+            Submitcomment:"提交您的評論",
+            productrating:"商品評分",
             cart:"加入購物車",
             collect:"加入我的收藏"
         },
         en: {
-            welcome: "Welcome to the Shopping Site",
-            explore: "Discover your fashion options and start shopping!",
-            introduce: "Introduce",
-            category: "Categories",
-            necklace: "Necklaces",
-            earrings: "Earrings",
-            rings: "Rings",
-            brand: "Brand",
+            
             necklace1:"Butterfly Shine Necklace",
             necklace2:"Blue Elegance Necklace",
             necklace3:"Starlight Drop Necklace",
@@ -87,6 +75,9 @@ const translations = {
             ringsintro3:"Delicate floral patterns with hollow detailing, suitable for any occasion.",
             ringsintro4:"A star-shaped halo design that adds a dazzling touch to your fingertips.",
             
+            score:"score",
+            Submitcomment:"Submit your comment",
+            productrating:"productrating",
             cart:"Add to Cart",
             collect:"Add to Collection"
         },
