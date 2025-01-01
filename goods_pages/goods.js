@@ -82,7 +82,11 @@ const translations = {
             collect:"Add to Collection"
         },
     };
-
+const currencySelect = document.getElementById("currency-select");
+const currencyFormats = {
+        TWD: { symbol: "NT$", rate: 1 },
+        USD: { symbol: "$", rate: 0.03 },
+    };
 // 購物車相關邏輯
 let cart = [];
 
