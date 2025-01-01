@@ -5,6 +5,92 @@ const swiper = new Swiper(".mySwiper", {
         prevEl: ".swiper-button-prev",
     },
 });
+const translations = {
+        "zh-TW": {
+            welcome: "歡迎來到購物網站",
+            explore: "探索您的時尚選擇，開始購物吧！",
+            introduce: "介紹",
+            category: "種類",
+            necklace: "項鍊",
+            earrings: "耳環",
+            rings: "戒指",
+            brand: "品牌",
+
+            necklace1:"蝶戀閃耀項鍊",
+            necklace2:"藍韻晶華項鍊",
+            necklace3:"星影垂光項鍊",
+            necklace4:"心繫結愛項鍊",
+
+            neckintro1:"浪漫蝴蝶造型，搭配耀眼晶鑽，增添柔美氣質。",
+            neckintro2:"清新藍水晶點綴，展現優雅自信。",
+            neckintro3:"流線型垂墜設計，藍色晶體優雅迷人。",
+            neckintro4:"蝴蝶結象徵愛與美，輕鬆打造甜美風格。",
+            
+            earrings1:"抗敏素鋼耳環",
+            earrings2:"星耀之心耳針",
+            earrings3:"流星月語耳環",
+            earrings4:"水晶六芒",
+
+            earintro1:"醫療鋼材質耐用抗敏，適合日常佩戴。",
+            earintro2:"星光閃爍設計，展現迷人魅力。",
+            earintro3:"星月造型搭配長流蘇，增添浪漫氣息。",
+            earintro4:"六邊形搭配晶石，手工打造時尚氣息。",
+
+            rings1:"銀月星辰戒指",
+            rings2:"蝶結心語戒指",
+            rings3:"花漾鏤空戒指",
+            rings4:"星華圓舞戒指",
+
+            ringsintro1:"滿天星元素，簡約設計展現高級感。",
+            ringsintro2:"純銀打造的甜美設計，散發優雅韻味。",
+            ringsintro3:"精緻花紋搭配鏤空設計，適合各種場合。",
+            ringsintro4:"星形光環設計，為指尖增添閃耀光彩。",
+
+            cart:"加入購物車",
+            collect:"加入我的收藏"
+        },
+        en: {
+            welcome: "Welcome to the Shopping Site",
+            explore: "Discover your fashion options and start shopping!",
+            introduce: "Introduce",
+            category: "Categories",
+            necklace: "Necklaces",
+            earrings: "Earrings",
+            rings: "Rings",
+            brand: "Brand",
+            necklace1:"Butterfly Shine Necklace",
+            necklace2:"Blue Elegance Necklace",
+            necklace3:"Starlight Drop Necklace",
+            necklace4:"Heart-Tied Love Necklace",
+            neckintro1:"Romantic butterfly design paired with dazzling crystals, adding a touch of soft elegance.",
+            neckintro2:"Adorned with refreshing blue crystals, exuding confidence and grace.",
+            neckintro3:"Streamlined drop design with elegant and enchanting blue crystals.",
+            neckintro4:"A bow symbolizes love and beauty, creating a sweet and charming style effortlessly.",
+            
+            earrings1:"Anti-Allergy Stainless Steel Earrings",
+            earrings2:"Starry Heart Stud Earrings",
+            earrings3:"Falling Moon and Star Earrings",
+            earrings4:"Crystal Hexagon",
+
+            earintro1:"Durable medical-grade stainless steel, perfect for everyday wear.",
+            earintro2:"A sparkling star design that highlights irresistible charm.",
+            earintro3:"Star and moon design with long tassels, adding a romantic vibe.",
+            earintro4:"Hexagonal elements paired with crystals, handcrafted for a stylish look.",
+
+            rings1:"Silver Moonlight Ring",
+            rings2:"Butterfly Bow Ring",
+            rings3:"Bloom Hollow Ring",
+            rings4:"Starry Waltz Ring",
+
+            ringsintro1:"Starry sky motif in a minimalist design, showcasing understated sophistication.",
+            ringsintro2:"Crafted from pure silver, the sweet design radiates elegance.",
+            ringsintro3:"Delicate floral patterns with hollow detailing, suitable for any occasion.",
+            ringsintro4:"A star-shaped halo design that adds a dazzling touch to your fingertips.",
+            
+            cart:"Add to Cart",
+            collect:"Add to Collection"
+        },
+    };
 
 // 購物車相關邏輯
 let cart = [];
