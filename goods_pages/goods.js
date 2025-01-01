@@ -187,7 +187,7 @@ document.querySelector('#review-form').addEventListener('submit', (event) => {
         });
     });
 
-    // 幣別切換功能
+// 幣別切換功能
     currencySelect.addEventListener("change", (event) => {
         const selectedCurrency = event.target.value;
         const { symbol, rate } = currencyFormats[selectedCurrency];
