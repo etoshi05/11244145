@@ -77,30 +77,12 @@
             margin-top: 2rem;
         }
 
-        #order-details,
-        #coupon-details {
-            margin-top: 1rem;
-            padding: 0.5rem;
-            background-color: #f9f9f9;
+        input {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
             border-radius: 5px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        }
-
-        #order-details ul,
-        #coupon-details ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        #order-details ul li,
-        #coupon-details ul li {
-            padding: 0.5rem;
-            border-bottom: 1px solid #ddd;
-        }
-
-        #order-details ul li:last-child,
-        #coupon-details ul li:last-child {
-            border-bottom: none;
         }
 
         button {
@@ -130,6 +112,16 @@
     <main>
         <section id="user-profile">
             <h2>您好, <span id="user-name"></span></h2>
+            <form id="profile-form">
+                <label for="name">名稱：</label>
+                <input type="text" id="name" value="" disabled>
+                <label for="phone">電話號碼：</label>
+                <input type="text" id="phone" value="" disabled>
+                <label for="email">信箱：</label>
+                <input type="text" id="email" value="" disabled>
+                <button type="button" id="edit-profile">編輯</button>
+                <button type="button" id="save-profile" style="display: none;">保存</button>
+            </form>
             <p>訂單數量：<span id="order-count">0</span></p>
             <button id="view-orders">查看訂單詳情</button>
             <div id="order-details" style="display: none;">
@@ -157,71 +149,65 @@
 
             const userData = JSON.parse(localStorage.getItem(username)) || {};
 
-            // 更新會員基本資料
+            // 初始化會員資料
             document.getElementById('user-name').textContent = username;
-            document.getElementById('order-count').textContent = userData.orders?.length || 0;
-            document.getElementById('collection-count').textContent = userData.collections?.length || 0;
+            document.getElementById('name').value = userData.name || '';
+            document.getElementById('phone').value = userData.phone || '';
+            document.getElementById('email').value = userData.email || '';
 
-            // 優惠券資料顯示
-            document.getElementById('coupon-count').textContent = userData.coupons?.length || 0;
-            const giftStatus = userData.registrationGift ? '已領取' : '尚未領取';
-            document.getElementById('registration-gift').textContent = giftStatus;
+            // 編輯和保存按鈕邏輯
+            const editBtn = document.getElementById('edit-profile');
+            const saveBtn = document.getElementById('save-profile');
+            const inputs = document.querySelectorAll('#profile-form input');
 
-            // 查看訂單詳情邏輯
-            document.getElementById('view-orders').addEventListener('click', () => {
-                const orderDetails = document.getElementById('order-details');
-                const orderList = document.getElementById('order-list');
-
-                // 顯示或隱藏詳情
-                orderDetails.style.display = orderDetails.style.display === 'none' ? 'block' : 'none';
-
-                // 清空並重新渲染訂單清單
-                orderList.innerHTML = '';
-
-                if (userData.orders && userData.orders.length > 0) {
-                    userData.orders.forEach((order, index) => {
-                        const li = document.createElement('li');
-                        li.textContent = `${index + 1}. ${order.name} - $${order.price}`;
-                        orderList.appendChild(li);
-                    });
-                } else {
-                    const li = document.createElement('li');
-                    li.textContent = '目前尚無訂單記錄';
-                    orderList.appendChild(li);
-                }
+            editBtn.addEventListener('click', () => {
+                inputs.forEach(input => input.disabled = false);
+                editBtn.style.display = 'none';
+                saveBtn.style.display = 'inline';
             });
 
-            // 查看優惠券詳情邏輯
-            document.getElementById('view-coupons').addEventListener('click', () => {
-                const couponDetails = document.getElementById('coupon-details');
-                const couponList = document.getElementById('coupon-list');
+            saveBtn.addEventListener('click', () => {
+        const emailInput = document.getElementById('email').value.trim();
+        const phoneInput = document.getElementById('phone').value.trim();
 
-                // 顯示或隱藏詳情
-                couponDetails.style.display = couponDetails.style.display === 'none' ? 'block' : 'none';
+        // 電話號碼格式驗證（適用於台灣手機號碼格式，例如：09xxxxxxxx）
+        const phoneRegex = /^09\d{8}$/;
 
-                // 清空並重新渲染優惠券清單
-                couponList.innerHTML = '';
+        // 信箱格式驗證
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-                if (userData.coupons && userData.coupons.length > 0) {
-                    userData.coupons.forEach((coupon, index) => {
-                        const li = document.createElement('li');
-                        li.textContent = `${index + 1}. ${coupon}`;
-                        couponList.appendChild(li);
-                    });
-                } else {
-                    const li = document.createElement('li');
-                    li.textContent = '目前無可用優惠券';
-                    couponList.appendChild(li);
-                }
-            });
+        if (!phoneRegex.test(phoneInput)) {
+            alert('電話號碼格式不正確！請輸入有效的手機號碼，例如：09xxxxxxxx');
+            return;
+        }
 
-            // 登出按鈕邏輯
-            document.getElementById('logoutBtn').addEventListener('click', function () {
-                localStorage.removeItem('loggedInUser');
-                alert('您已成功登出！');
-                window.location.href = '../index.html';
-            });
+        if (!emailRegex.test(emailInput)) {
+            alert('信箱格式不正確！請輸入有效的信箱地址，例如：example@mail.com');
+            return;
+        }
+
+        // 關閉輸入框並顯示編輯按鈕
+        inputs.forEach(input => input.disabled = true);
+        editBtn.style.display = 'inline';
+        saveBtn.style.display = 'none';
+
+        // 保存資料
+        userData.name = document.getElementById('name').value;
+        userData.phone = phoneInput;
+        userData.email = emailInput;
+
+        localStorage.setItem(username, JSON.stringify(userData));
+        alert('資料已保存！');
+    });
+
+
+        // 登出按鈕邏輯
+        document.getElementById('logoutBtn').addEventListener('click', function () {
+            localStorage.removeItem('loggedInUser');
+            alert('您已成功登出！');
+            window.location.href = '../index.html';
         });
+    });
     </script>
 </body>
 </html>

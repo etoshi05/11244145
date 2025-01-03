@@ -146,18 +146,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 從 localStorage 讀取購物車和收藏數據
     const savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-        cartCount = cart.length;
-        cartCountElement.textContent = cartCount;
-    }
-
+        if (savedCart) {
+            cart = JSON.parse(savedCart);
+            cartCount = cart.length;
+        } else {
+            cart = [];
+            cartCount = 0;
+        }
+    
     const savedCollection = localStorage.getItem("collection");
-    if (savedCollection) {
-        collection = JSON.parse(savedCollection);
-        collectionCount = collection.length;
-        collectionCountElement.textContent = collectionCount;
-    }
+        if (savedCollection) {
+            collection = JSON.parse(savedCollection);
+            collectionCount = collection.length;
+        } else {
+            collection = [];
+            collectionCount = 0;
+        }
+    
 
     // 顯示彈窗提示
     function showAlert(message) {
@@ -281,52 +286,6 @@ document.addEventListener("DOMContentLoaded", () => {
     startCountdown(3 * 60 * 60);
 });
 
-// 加入收藏
-function getFavorites() {
-    const favorites = localStorage.getItem('favorites');
-    return favorites ? JSON.parse(favorites) : [];
-}
-
-// Function to save favorites to localStorage
-function saveFavorites(favorites) {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
-}
-
-// Function to render the favorite items list
-function renderFavorites() {
-    const favoritesList = document.getElementById('favorites-list');
-    const favorites = getFavorites();
-    favoritesList.innerHTML = '';
-    favorites.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item.name;
-        favoritesList.appendChild(li);
-    });
-}
-
-// Function to handle "Add to Favorites" button click
-function handleFavoriteButtonClick(event) {
-    const itemElement = event.target.closest('.item');
-    const itemId = itemElement.getAttribute('data-id');
-    const itemName = itemElement.getAttribute('data-name');
-
-    const favorites = getFavorites();
-    const itemAlreadyFavorited = favorites.some(fav => fav.id === itemId);
-
-    if (!itemAlreadyFavorited) {
-        favorites.push({ id: itemId, name: itemName });
-        saveFavorites(favorites);
-        renderFavorites();
-    } else {
-        alert('This item is already in your favorites!');
-    }
-}
-
-// Attach event listeners to all favorite buttons
-document.querySelectorAll('.favorite-btn').forEach(button => {
-    button.addEventListener('click', handleFavoriteButtonClick);
-});
-
 // Render favorites when the page loads
 renderFavorites();
 document.addEventListener('DOMContentLoaded', () => {
@@ -372,4 +331,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 測試用：打印目前登入用戶 (在開發階段觀察)
     console.log('Logged in user:', localStorage.getItem('loggedInUser'));
+});
+document.addEventListener("DOMContentLoaded", () => {
+    // 取得收藏清單
+function getCollection() {
+    const collection = localStorage.getItem("collection");
+    return collection ? JSON.parse(collection) : [];
+}
+
+// 儲存收藏清單
+function saveCollection(collection) {
+    localStorage.setItem("collection", JSON.stringify(collection));
+}
+
+// 新增商品到收藏清單
+function addToCollection(product) {
+    const collection = getCollection();
+    if (collection.some(item => item.id === product.id)) {
+        alert(`${product.name} 已在收藏清單中！`);
+        return;
+    }
+
+    collection.push(product); // 加入新的商品
+    saveCollection(collection); // 儲存到 LocalStorage
+    alert(`${product.name} 已成功加入收藏！`);
+}
 });

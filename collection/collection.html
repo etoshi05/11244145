@@ -1,132 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的收藏</title>
+    <link rel="stylesheet" href="collection.css">
 </head>
-<style>
-
-*{
-        font-family: 新細明體;
-        box-sizing: border-box;
-    }
-
-    body{
-        font-family: Arial, sans-serif;
-        line-height: 1.6;
-        background-color: #EDE3E9;
-        margin: 0;
-        padding: 0;
-    }
-
-    header{
-        background-color: #513B3C; /* Raisin black */
-        padding: 5px 30px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        border-bottom: 1px solid #513B3C; /* Rose ebony */
-        color: #EDE3E9; /* 白色字體 */
-    }
-
-    article{
-        float: left;
-        display: grid; /* 啟用 Grid 布局 */
-        grid-template-rows: repeat(auto-fit, minmax(1fr, 1fr,1fr)); /* 根據空間自適應排列 */
-        gap: 10px; /* 卡片間距 */
-        padding: 20px;
-        justify-items: center; /* 卡片內容水平置中 */
-        display: grid;
-        align-items: stretch;
-    }
-    section {
-        text-align: center;
-        background: #FFF; /* 白色背景 */
-        border-radius: 10px; /* 圓角邊框 */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 陰影效果 */
-        padding: 5px; /* 內距 */
-        width: 400px;
-        height: 550px; 
-        margin: 15px;
-    }
-
-    section img{
-        margin-top: 15px;
-        margin-bottom: 5px;
-        padding: 5px; /* 內距 */
-        width: 350px;
-        height: 350px;
-    }
-
-    h3{
-        margin-top: 0px ;
-    }
-
-    button{
-    background-color: #222523;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin: 10px;
-    }
-
-</style>
 <body>
     <header>
-        <h2>我的收藏</h2>
+        <div class="logo">
+            <a href="../index.html">閃亮亮飾品店</a>
+        </div>
+        <h1>我的收藏</h1>
+        <div id="collection-count">收藏數量：0</div>
     </header>
-
-    <nav>
-
-    </nav>
-
     <main>
-        <article>
-            <section>
-                <img src="../images/ring/2/ring2-2.png" alt="product 1">
-                    <h3>Product Name 1</h3>
-                    <h3>Price: $29.99</h3>
-                    <h3><button class="add-to-cart" onclick="toggleFavorite(this)">加入購物車</button></h3>
-            </section>
-
-
-            <section>
-                <img src="../images/neck/attract/blue2.avif" alt="product 2">
-                    <h3>Product Name 2</h3>
-                    <h3>Price: $49.99</h3>
-                    <h3><button class="add-to-cart" onclick="toggleFavorite(this)">加入購物車</button></h3>
-            </section>
-
-            <section>
-                <img src="../images/earrings/dream/gold.avif" alt="product 3">
-        
-                    <h3>Product Name 3</h3>
-                    <h3>Price: $39.99</h3>
-                    <h3><button class="add-to-cart" onclick="toggleFavorite(this)">加入購物車</button></h3>
-    
-            </section>
-        </article>
-
-            <script>
-                function toggleFavorite(button) {
-                    if (button.classList.contains('added')) {
-                        button.classList.remove('added');
-                        button.textContent = 'Add to cart';
-                    } else {
-                        button.classList.add('added');
-                        button.textContent = 'Added to cart';
-                    }
-                }
-            </script>
-        
+        <ul id="collection-list"></ul>
     </main>
-        
-    <footer>
-
-    </footer>
-
+    <script src="collection.js"></script>
 </body>
 </html>
