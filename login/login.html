@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>登入與註冊</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="logo">
+        <a href="../index.html">閃亮亮飾品店</a>
+    </div>
+    <div class="container">
+        <div class="form-container">
+            <form id="loginForm" class="form">
+                <h2>登入</h2>
+                <label for="loginUsername">帳號:</label>
+                <input type="text" id="loginUsername" name="username" required>
+                <label for="loginPassword">密碼:</label>
+                <input type="password" id="loginPassword" name="password" required>
+                <button type="submit">登入</button>
+                <p>還沒有帳號？<a href="#" id="showRegister">註冊</a></p>
+            </form>
+            <form id="registerForm" class="form hidden">
+                <h2>註冊</h2>
+                <label for="registerUsername">帳號:</label>
+                <input type="text" id="registerUsername" name="username" required>
+                <label for="registerPassword">密碼:</label>
+                <input type="password" id="registerPassword" name="password" required>
+                <button type="submit">註冊</button>
+                <p>已經有帳號了？<a href="#" id="showLogin">登入</a></p>
+            </form>
+        </div>
+    </div>
+    <script src="login.js"></script>
+</body>
+</html>
