@@ -197,6 +197,7 @@ document.querySelector('#review-form').addEventListener('submit', (event) => {
             priceElement.textContent = `${symbol} ${(basePrice * rate).toFixed(2)}`;
         });
     });
+<<<<<<< HEAD
     // 加入收藏按鈕點擊事件
 document.querySelectorAll('.add-to-collection').forEach(button => {
     button.addEventListener('click', (event) => {
@@ -373,3 +374,5 @@ const collection = [
         url: "http://127.0.0.1:5500/goods_pages/ring_4.html"
     }
 ];
+=======
+>>>>>>> c6a7ec5fb483f4edc528b3426df84308618ff805
